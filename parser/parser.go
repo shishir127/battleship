@@ -1,5 +1,5 @@
 package parser
 
 type Parses interface {
-	Parse(byte [])
+	Parse(input []string)
 }
