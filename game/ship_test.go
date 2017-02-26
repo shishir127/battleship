@@ -5,15 +5,10 @@ import (
 	"testing"
 )
 
-func TestIsPresentShouldAlwaysReturnTrue(t *testing.T) {
-	ship := Ship{}
-	assert.True(t, ship.IsPresent())
-}
-
-func TestHitShouldReturnShipWithHitRepresentation(t *testing.T) {
-	ship := Ship{}
-	expectedShip := &Ship{representation: HIT}
-	assert.Equal(t, expectedShip, ship.Hit())
+func TestHitChangeStateToHit(t *testing.T) {
+	ship := Ship{representation: NOT_HIT}
+	ship.Hit()
+	assert.Equal(t, HIT, ship.representation)
 }
 
 func TestNewShipShouldReturnAShipThatIsNotHit(t *testing.T) {

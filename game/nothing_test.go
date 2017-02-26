@@ -5,14 +5,11 @@ import (
 	"testing"
 )
 
-func TestNothingShouldAlwaysReturnFalse(t *testing.T) {
-	nothing := Nothing{}
-	assert.False(t, nothing.IsPresent())
-}
-
-func TestNothingShouldReturnSelfWhenHitIsCalled(t *testing.T) {
+func TestNothingShouldDoNothinWhenHitIsCalled(t *testing.T) {
 	nothing := &Nothing{}
-	assert.Equal(t, nothing, nothing.Hit())
+	previousState := nothing.representation
+	nothing.Hit()
+	assert.Equal(t, previousState, nothing.representation)
 }
 
 func TestNewNothingShouldReturnAnInstanceOfNothing(t *testing.T) {

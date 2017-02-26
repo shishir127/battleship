@@ -8,10 +8,6 @@ func NewNothing() *Nothing {
 	return &Nothing{representation: "-"}
 }
 
-func (object *Nothing) IsPresent() bool {
-	return false
-}
-
-func (object *Nothing) Hit() *Nothing {
-	return object
+func (nothing *Nothing) Hit() {
+	return
 }
