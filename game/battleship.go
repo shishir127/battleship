@@ -12,6 +12,10 @@ type Battleship struct {
 	player2Missiles []Missile
 }
 
+func NewBattleship(setup *BattleshipSetup) (*Battleship, error) {
+	return nil, nil
+}
+
 func (battleship *Battleship) RunSimulation() error {
 	err := battleship.player1Board.HitMissiles(battleship.player2Missiles)
 	if err != nil {

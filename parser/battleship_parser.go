@@ -10,48 +10,48 @@ import (
 )
 
 type BattleShipParser struct {
-	input []string
+	Input []string
 	setup game.BattleshipSetup
 }
 
 func NewBattleShipParser(stringInput []string) *BattleShipParser {
-	return &BattleShipParser{input: stringInput}
+	return &BattleShipParser{Input: stringInput}
 }
 
 func (parser *BattleShipParser) Parse() error {
 	var err error
 	gameSetup := game.BattleshipSetup{}
-	gameSetup.GridSize, err = strconv.Atoi(parser.input[0])
+	gameSetup.GridSize, err = strconv.Atoi(parser.Input[0])
 	if err != nil {
 		return errors.New(fmt.Sprintf("Grid size - %s", err.Error()))
 	}
 
-	gameSetup.NumberOfShips, err = strconv.Atoi(parser.input[1])
+	gameSetup.NumberOfShips, err = strconv.Atoi(parser.Input[1])
 	if err != nil {
 		return errors.New(fmt.Sprintf("Number of ships - %s", err.Error()))
 	}
 
-	gameSetup.NumberOfMissiles, err = strconv.Atoi(parser.input[4])
+	gameSetup.NumberOfMissiles, err = strconv.Atoi(parser.Input[4])
 	if err != nil {
 		return errors.New(fmt.Sprintf("Number of missiles - %s", err.Error()))
 	}
 
-	gameSetup.Player1ShipPositions, err = parseLocations(parser.input[2])
+	gameSetup.Player1ShipPositions, err = parseLocations(parser.Input[2])
 	if err != nil {
 		return errors.New(fmt.Sprintf("Player 1 ship locations - %s", err.Error()))
 	}
 
-	gameSetup.Player2ShipPositions, err = parseLocations(parser.input[3])
+	gameSetup.Player2ShipPositions, err = parseLocations(parser.Input[3])
 	if err != nil {
 		return errors.New(fmt.Sprintf("Player 2 ship locations - %s", err.Error()))
 	}
 
-	gameSetup.Player1sMissiles, err = parseMissileTargets(parser.input[5])
+	gameSetup.Player1sMissiles, err = parseMissileTargets(parser.Input[5])
 	if err != nil {
 		return errors.New(fmt.Sprintf("Player 1 missiles - %s", err.Error()))
 	}
 
-	gameSetup.Player2sMissiles, err = parseMissileTargets(parser.input[6])
+	gameSetup.Player2sMissiles, err = parseMissileTargets(parser.Input[6])
 	if err != nil {
 		return errors.New(fmt.Sprintf("Player 2 missiles - %s", err.Error()))
 	}

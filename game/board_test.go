@@ -9,9 +9,7 @@ import (
 
 func TestNewBoard(t *testing.T) {
 	boardSize := 2
-	input := map[Location]*Ship{
-		Location{x_coordinate: 1, y_coordinate: 2}: NewShip(),
-	}
+	input := []Location{Location{x_coordinate: 1, y_coordinate: 2}}
 	expectedGrid := map[string]Tile{
 		"0:0": NewNothing(),
 		"0:1": NewNothing(),
@@ -32,9 +30,7 @@ func TestNewBoard(t *testing.T) {
 
 func TestNewBoardShouldReturnAnErrorIfShipLocationIsOutsideBounds(t *testing.T) {
 	boardSize := 2
-	input := map[Location]*Ship{
-		Location{x_coordinate: 3, y_coordinate: 2}: NewShip(),
-	}
+	input := []Location{Location{x_coordinate: 3, y_coordinate: 2}}
 	board, err := NewBoard(input, boardSize)
 	expectedError := errors.New("Ship location 3:2 is outside board bounds")
 	assert.Equal(t, expectedError, err)

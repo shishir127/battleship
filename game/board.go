@@ -10,12 +10,12 @@ type Board struct {
 	size int
 }
 
-func NewBoard(shipsLocation map[Location]*Ship, size int) (*Board, error) {
+func NewBoard(shipsLocation []Location, size int) (*Board, error) {
 	grid := createBlankGrid(size)
 
-	for location, ship := range shipsLocation {
+	for _, location := range shipsLocation {
 		if _, ok := grid[location.Hash()]; ok {
-			grid[location.Hash()] = ship
+			grid[location.Hash()] = NewShip()
 		} else {
 			return &Board{}, errors.New(fmt.Sprintf("Ship location %s is outside board bounds", location.Hash()))
 		}

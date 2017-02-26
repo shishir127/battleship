@@ -42,7 +42,7 @@ func TestParser(t *testing.T) {
 		},
 	}
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.NoError(t, err)
 	battleShipSetup := parser.Tokens()
@@ -63,7 +63,7 @@ func TestParserWhenGridSizeIsMalformed(t *testing.T) {
 	expectedOutput := &game.BattleshipSetup{}
 	expectedError := errors.New("Grid size - strconv.ParseInt: parsing \"foo\": invalid syntax")
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.Equal(t, expectedError, err)
 	battleShipSetup := parser.Tokens()
@@ -84,7 +84,7 @@ func TestParserWhenNumberOfShipsIsMalformed(t *testing.T) {
 	expectedOutput := &game.BattleshipSetup{}
 	expectedError := errors.New("Number of ships - strconv.ParseInt: parsing \"foo\": invalid syntax")
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.Equal(t, expectedError, err)
 	battleShipSetup := parser.Tokens()
@@ -105,7 +105,7 @@ func TestParserWhenNumberOfMissilesIsMalformed(t *testing.T) {
 	expectedOutput := &game.BattleshipSetup{}
 	expectedError := errors.New("Number of missiles - strconv.ParseInt: parsing \"foo\": invalid syntax")
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.Equal(t, expectedError, err)
 	battleShipSetup := parser.Tokens()
@@ -126,7 +126,7 @@ func TestParserWhenPlayer1ShipLocationIsMalformed(t *testing.T) {
 	expectedOutput := &game.BattleshipSetup{}
 	expectedError := errors.New("Player 1 ship locations - strconv.ParseInt: parsing \"2<\": invalid syntax")
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.Equal(t, expectedError, err)
 	battleShipSetup := parser.Tokens()
@@ -147,7 +147,7 @@ func TestParserWhenPlayer2ShipLocationIsMalformed(t *testing.T) {
 	expectedOutput := &game.BattleshipSetup{}
 	expectedError := errors.New("Player 2 ship locations - strconv.ParseInt: parsing \"_7\": invalid syntax")
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.Equal(t, expectedError, err)
 	battleShipSetup := parser.Tokens()
@@ -168,7 +168,7 @@ func TestParserWhenPlayer2MissilesIsMalformed(t *testing.T) {
 	expectedOutput := &game.BattleshipSetup{}
 	expectedError := errors.New("Player 2 missiles - strconv.ParseInt: parsing \"!5\": invalid syntax")
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.Equal(t, expectedError, err)
 	battleShipSetup := parser.Tokens()
@@ -189,7 +189,7 @@ func TestParserWhenPlayer1MissilesIsMalformed(t *testing.T) {
 	expectedOutput := &game.BattleshipSetup{}
 	expectedError := errors.New("Player 1 missiles - strconv.ParseInt: parsing \"@9\": invalid syntax")
 
-	parser := BattleShipParser{input: input}
+	parser := BattleShipParser{Input: input}
 	err := parser.Parse()
 	assert.Equal(t, expectedError, err)
 	battleShipSetup := parser.Tokens()
@@ -200,5 +200,5 @@ func TestNewBattleShipParser(t *testing.T) {
 	testInput := make([]string, 1)
 	parser := NewBattleShipParser(testInput)
 	assert.Equal(t, reflect.TypeOf(&BattleShipParser{}), reflect.TypeOf(parser))
-	assert.Equal(t, testInput, parser.input)
+	assert.Equal(t, testInput, parser.Input)
 }
