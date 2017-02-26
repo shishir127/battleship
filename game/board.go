@@ -24,6 +24,17 @@ func NewBoard(shipsLocation map[Location]*Ship, size int) (*Board, error) {
 	return &Board{grid: grid, size: size}, nil
 }
 
+func (board *Board) HitMissiles(missiles []Missile) error {
+	for _, missile := range missiles {
+		if _, ok := board.grid[missile.Target.Hash()]; ok {
+			board.grid[missile.Target.Hash()].Hit()
+		} else {
+			return errors.New(fmt.Sprintf("Missile target %s is not on the board", missile.Target.Hash()))
+		}
+	}
+	return nil
+}
+
 func createBlankGrid(size int) map[string]Tile {
 	grid := make(map[string]Tile)
 	for i := 0; i <= size; i++ {

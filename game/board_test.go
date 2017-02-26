@@ -41,3 +41,49 @@ func TestNewBoardShouldReturnAnErrorIfShipLocationIsOutsideBounds(t *testing.T) 
 	assert.Equal(t, 0, board.size)
 	assert.Equal(t, 0, len(board.grid))
 }
+
+func TestHitMissilesShouldHitTheTileThatIsTheTargetOfTheMissile(t *testing.T) {
+	mockedTile1 := &MockedTile{}
+	mockedTile2 := &MockedTile{}
+	boardSize := 1
+	grid := map[string]Tile{
+		"0:0": NewNothing(),
+		"0:1": mockedTile1,
+		"1:0": NewNothing(),
+		"1:1": mockedTile2,
+	}
+	missiles := []Missile{
+		Missile{Target: Location{x_coordinate: 0, y_coordinate: 1}},
+		Missile{Target: Location{x_coordinate: 1, y_coordinate: 1}},
+	}
+
+	mockedTile1.On("Hit")
+	mockedTile2.On("Hit")
+
+	board := &Board{grid: grid, size: boardSize}
+	err := board.HitMissiles(missiles)
+
+	assert.NoError(t, err)
+	mockedTile1.AssertExpectations(t)
+	mockedTile2.AssertExpectations(t)
+}
+
+func TestHitMissilesShouldReturnAnErrorIfMissileTargetIsOutOfBounds(t *testing.T) {
+	boardSize := 1
+	grid := map[string]Tile{
+		"0:0": NewNothing(),
+		"0:1": NewNothing(),
+		"1:0": NewNothing(),
+		"1:1": NewNothing(),
+	}
+	missiles := []Missile{
+		Missile{Target: Location{x_coordinate: 2, y_coordinate: 1}},
+	}
+	expectedError := errors.New("Missile target 2:1 is not on the board")
+
+	board := &Board{grid: grid, size: boardSize}
+	err := board.HitMissiles(missiles)
+
+	assert.Equal(t, expectedError, err)
+	board.HitMissiles(missiles)
+}
