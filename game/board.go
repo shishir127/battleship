@@ -35,6 +35,20 @@ func (board *Board) HitMissiles(missiles []Missile) error {
 	return nil
 }
 
+func (board *Board) Display() []string {
+	var output []string
+	for row := 0; row <= board.size; row++ {
+		location := Location{x_coordinate: row, y_coordinate: 0}
+		rowContents := board.grid[location.Hash()].Representation()
+		for col := 1; col <= board.size; col++ {
+			location = Location{x_coordinate: row, y_coordinate: col}
+			rowContents = rowContents + "," + board.grid[location.Hash()].Representation()
+		}
+		output = append(output, rowContents)
+	}
+	return output
+}
+
 func createBlankGrid(size int) map[string]Tile {
 	grid := make(map[string]Tile)
 	for i := 0; i <= size; i++ {

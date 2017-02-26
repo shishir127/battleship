@@ -16,3 +16,7 @@ func (ship *Ship) Hit() {
 func NewShip() *Ship {
 	return &Ship{representation: NOT_HIT}
 }
+
+func (ship *Ship) Representation() string {
+	return ship.representation
+}

@@ -4,6 +4,7 @@ import "github.com/stretchr/testify/mock"
 
 type Tile interface {
 	Hit()
+	Representation() string
 }
 
 type MockedTile struct {
@@ -12,4 +13,9 @@ type MockedTile struct {
 
 func (mockedTile *MockedTile) Hit() {
 	mockedTile.Called()
+}
+
+func (mockedTile *MockedTile) Representation() string {
+	args := mockedTile.Called()
+	return args.String(0)
 }

@@ -87,3 +87,22 @@ func TestHitMissilesShouldReturnAnErrorIfMissileTargetIsOutOfBounds(t *testing.T
 	assert.Equal(t, expectedError, err)
 	board.HitMissiles(missiles)
 }
+
+func TestBoardDisplay(t *testing.T) {
+	boardSize := 1
+	grid := map[string]Tile{
+		"0:0": NewNothing(),
+		"0:1": NewNothing(),
+		"1:0": NewNothing(),
+		"1:1": NewNothing(),
+	}
+	board := &Board{grid: grid, size: boardSize}
+	expectedOutput := []string{
+		"-,-",
+		"-,-",
+	}
+
+	output := board.Display()
+
+	assert.Equal(t, expectedOutput, output)
+}

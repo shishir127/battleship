@@ -11,3 +11,7 @@ func NewNothing() *Nothing {
 func (nothing *Nothing) Hit() {
 	return
 }
+
+func (nothing *Nothing) Representation() string {
+	return nothing.representation
+}
