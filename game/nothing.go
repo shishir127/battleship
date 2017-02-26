@@ -1,6 +1,12 @@
 package game
 
-type Nothing struct{}
+type Nothing struct {
+	representation string
+}
+
+func NewNothing() *Nothing {
+	return &Nothing{representation: "-"}
+}
 
 func (object *Nothing) IsPresent() bool {
 	return false
