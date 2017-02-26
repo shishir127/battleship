@@ -1,11 +1,30 @@
 package game
 
+import (
+	"errors"
+	"fmt"
+)
+
 type Board struct {
 	grid map[string]Tile
 	size int
 }
 
 func NewBoard(shipsLocation map[Location]*Ship, size int) (*Board, error) {
+	grid := createBlankGrid(size)
+
+	for location, ship := range shipsLocation {
+		if _, ok := grid[location.Hash()]; ok {
+			grid[location.Hash()] = ship
+		} else {
+			return &Board{}, errors.New(fmt.Sprintf("Ship location %s is outside board bounds", location.Hash()))
+		}
+	}
+
+	return &Board{grid: grid, size: size}, nil
+}
+
+func createBlankGrid(size int) map[string]Tile {
 	grid := make(map[string]Tile)
 	for i := 0; i <= size; i++ {
 		for j := 0; j <= size; j++ {
@@ -13,10 +32,5 @@ func NewBoard(shipsLocation map[Location]*Ship, size int) (*Board, error) {
 			grid[location.Hash()] = NewNothing()
 		}
 	}
-
-	for location, ship := range shipsLocation {
-		grid[location.Hash()] = ship
-	}
-
-	return &Board{grid: grid, size: size}, nil
+	return grid
 }
